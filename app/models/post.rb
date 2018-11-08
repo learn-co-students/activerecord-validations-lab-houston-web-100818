@@ -8,14 +8,9 @@ class Post < ActiveRecord::Base
   def clickbait?
     if !self.title.nil?
       array = ["Won't Believe", "Secret", "Top [number]", "Guess"]
-      found = array.find { |phrase| self.title.include?(phrase) }
-
-      if found.nil?
+      if array.find { |phrase| self.title.include?(phrase) }.nil?
         errors.add(:title, "must be clickbait")
       end
     end
   end
-
 end
-
-# Finally, add a custom validator to Post that ensures the title is sufficiently clickbait-y. If the title does not contain "Won't Believe", "Secret", "Top [number]", or "Guess", the validator should return false.
