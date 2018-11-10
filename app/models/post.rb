@@ -1,5 +1,4 @@
 class Post < ActiveRecord::Base
-    validates :title, presence: :true
     validates :content, length: { minimum: 250 }
     validates :summary, length: { maximum: 250 }
     validates :category, inclusion: { in: %w(Fiction Non-Fiction), 
@@ -9,16 +8,13 @@ class Post < ActiveRecord::Base
 
 
     def title_validation
+        a = ["Won't Believe", "Secret", "Top [number]", "Guess"]
+
         if title == nil
              errors.add(:title, "Post needs title")
-        else 
-      
-        a = ["Won't Believe", "Secret", "Top [number]", "Guess"]
-        if a.any? { |word| title.include?(word) }
-            
-        else 
+        elsif !a.any? { |word| title.include?(word) }
             errors.add(:title, "Invalid title")
         end
-    end
+    
     end 
 end
